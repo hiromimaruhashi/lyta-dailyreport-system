@@ -115,7 +115,7 @@ public class EmployeeController {
 
 
 
-
+ //更新画面
     @GetMapping(value = "/{code}/update")
 
     public String edit(@PathVariable("code") String code, Model model) {
@@ -133,13 +133,13 @@ public class EmployeeController {
 
         if (res.hasErrors()) {
             model.addAttribute("employee", employee);
-            return "employees/update"; // 入力エラー
+            return "employees/update";
         }
 
         ErrorKinds result = employeeService.save(employee);
 
         if (ErrorMessage.contains(result)) {
-            // パスワード関連エラーなら passwordError に格納
+
             if (result == ErrorKinds.RANGECHECK_ERROR || result == ErrorKinds.HALFSIZE_ERROR) {
                 model.addAttribute("passwordError", ErrorMessage.getErrorValue(result));
             } else {
@@ -149,7 +149,7 @@ public class EmployeeController {
             return "employees/update";
         }
 
-        // 更新成功時は従業員詳細画面へリダイレクト
+
         return "redirect:/employees/" + employee.getCode() + "/";
     }
 }
