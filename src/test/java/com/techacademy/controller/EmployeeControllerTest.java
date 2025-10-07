@@ -97,8 +97,8 @@ class EmployeeControllerTest {
 
         Employee employee = (Employee) result.getModelAndView().getModel().get("employee");
         assertEquals(employee.getCode(), "1");
-        assertEquals(employee.getName(), "煌木　太郎");
-        assertEquals(employee.getRole(), Role.ADMIN);
+        assertEquals(employee.getName(), "テスト太郎");
+        assertEquals(employee.getRole(), Role.GENERAL);
     }
 
     // 従業員新規登録画面
@@ -200,7 +200,7 @@ class EmployeeControllerTest {
 
         // HTTPリクエストに対するレスポンスの検証
         mockMvc.perform((post("/employees/add")).flashAttr("employee", employee).with(csrf()))
-                .andExpect(view().name("employees/new"));
+        .andExpect(redirectedUrl("/employees"));
 
     }
 
